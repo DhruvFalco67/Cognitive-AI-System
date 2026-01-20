@@ -1,0 +1,60 @@
+<div class="h-screen w-screen flex flex-col bg-gradient-to-b from-gray-900 to-black text-gray-200 overflow-hidden">
+  
+  <!-- Top Bar -->
+  <header class="h-14 border-b border-gray-800 flex items-center justify-between px-6 bg-black/50 backdrop-blur-md z-50">
+    <div class="flex items-center gap-2">
+      <div class="w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
+      <h1 class="font-bold tracking-widest text-sm md:text-lg">COGNITIVE <span class="text-gray-500">SYSTEM</span></h1>
+    </div>
+    <div class="flex gap-4 text-xs font-mono text-gray-500">
+      <span class="hidden md:inline">VERSION 2.5-FLASH</span>
+      <span [class.text-green-500]="!cognitive.isProcessing()" [class.text-yellow-500]="cognitive.isProcessing()">
+        {{ cognitive.isProcessing() ? 'PROCESSING' : 'IDLE' }}
+      </span>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+    
+    <!-- Left: Curious Soul -->
+    <div class="w-full md:w-1/4 h-1/4 md:h-full p-2 md:p-4 md:border-r border-gray-800 order-1 md:order-1">
+      <app-ai-panel 
+        [name]="'Curious Soul'"
+        [type]="'CURIOUS_SOUL'"
+        [health]="cognitive.curiousHealth()"
+        [emotion]="cognitive.curiousEmotion()"
+        [isActive]="cognitive.activeSpeaker() === 'CURIOUS_SOUL'"
+        [secondaryStat]="cognitive.curiousBrainSize().toFixed(1)">
+      </app-ai-panel>
+    </div>
+
+    <!-- Center: Chat / Interface -->
+    <div class="flex-1 h-1/2 md:h-full flex flex-col order-2 md:order-2 relative z-10">
+      <!-- Chat Feed -->
+      <div class="flex-1 overflow-hidden relative">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(50,50,50,0.1)_0,rgba(0,0,0,0)_70%)] pointer-events-none"></div>
+        <app-chat-feed [messages]="cognitive.messages()"></app-chat-feed>
+      </div>
+      
+      <!-- User Controls -->
+      <app-control-panel 
+        (onInput)="cognitive.handleUserInput($event)"
+        (onInterference)="cognitive.triggerInterference()">
+      </app-control-panel>
+    </div>
+
+    <!-- Right: Searcher Mind -->
+    <div class="w-full md:w-1/4 h-1/4 md:h-full p-2 md:p-4 md:border-l border-gray-800 order-3 md:order-3">
+      <app-ai-panel 
+        [name]="'Searcher Mind'"
+        [type]="'SEARCHER_MIND'"
+        [health]="cognitive.searcherHealth()"
+        [emotion]="cognitive.searcherEmotion()"
+        [isActive]="cognitive.activeSpeaker() === 'SEARCHER_MIND'"
+        [secondaryStat]="100"> <!-- Searcher has fixed Logic depth of 100 -->
+      </app-ai-panel>
+    </div>
+
+  </div>
+</div>

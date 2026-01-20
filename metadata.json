@@ -1,0 +1,8 @@
+{
+  "name": "Cognitive Dual-Mind System",
+  "description": "A living cognitive system with two distinct AI personalities (Curious Soul & Searcher Mind) that debate, learn, and evolve. Features a Judge AI, health systems, and dynamic brain growth.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
